@@ -1,1 +1,1 @@
-# SmartGrowGT-Admin
+# SmartGrowGT Admin API
