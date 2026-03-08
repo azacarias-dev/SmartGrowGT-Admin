@@ -1,0 +1,49 @@
+import { Router } from "express";
+import {
+    getAllCropsAdmin,
+    getCropByNameAdmin,
+    getCropByIdAdmin,
+    createCropAdmin,
+    updateCropAdmin,
+    deleteCropAdmin,
+} from "./crops.controller.js";
+
+import { uploadCropImage } from "../../middlewares/file-uploader.js";
+import {
+    validateCreateCrop,
+    validateUpdateCrop,
+    validateGetCropById,
+    validateGetCropByName,
+} from "../../middlewares/crops-validation.js";
+
+const router = Router();
+
+// Listar todos los cultivos
+router.get("/", getAllCropsAdmin);
+
+// Buscar cultivo por nombre
+router.get("/:nombreCultivo", validateGetCropByName, getCropByNameAdmin);
+
+// Buscar cultivo por ID
+router.get("/id/:id", validateGetCropById, getCropByIdAdmin);
+
+// Crear cultivo
+router.post(
+    "/",
+    uploadCropImage.single("image"),
+    validateCreateCrop,
+    createCropAdmin
+);
+
+// Editar cultivo
+router.put(
+    "/:id",
+    uploadCropImage.single("image"),
+    validateUpdateCrop,
+    updateCropAdmin
+);
+
+// Eliminar cultivo
+router.delete("/:id", validateGetCropById, deleteCropAdmin);
+
+export default router;
