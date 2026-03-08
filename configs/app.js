@@ -7,6 +7,9 @@ import morgan from 'morgan';
 import { cordOptions } from './cors-configuration.js';
 import { dbConnection } from './db.js';
 import usersRoutes from '../src/Users/users.routes.js';
+import cultivosRoutes from '../src/Crops/crops.routes.js'
+import devicesRoutes from '../src/Devices/devices.routes.js';
+import adminsRoutes from '../src/Admins/admins.routes.js';
 
 const BASE_URL = '/smartgrowgt/v1/admin';
 
@@ -20,7 +23,11 @@ const middlewares = (app) => {
 
 // Integración de rutas
 const routes = (app) => {
+  // Rutas de la aplicacion
     app.use(`${BASE_URL}/usuarios`, usersRoutes);
+    app.use(`${BASE_URL}/cultivos`, cultivosRoutes);
+    app.use(`${BASE_URL}/devices`, devicesRoutes);
+    app.use(`${BASE_URL}/admins`, adminsRoutes);
 };
 
 // Iniciar servidor
